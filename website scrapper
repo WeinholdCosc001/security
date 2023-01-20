@@ -1,0 +1,11 @@
+import lxml.html
+import requests
+
+#website goes here V
+page = requests.get('http://quotes.toscrape.com')
+tree = lxml.html.fromstring(page.content)
+
+#webiste tags goes here V
+results = tree.xpath('//small/text()')
+
+print(results)
