@@ -169,3 +169,36 @@ binary analysis is trash figured out bitshifting
 
 priv exc useing xargs and gtfo bins 
 found root home and nc script openign hte port 
+
+
+---------------------------------------------------------------------------------------------------------------
+
+part 2 
+
+
+found 192.168.28
+.5    port 22, 3389
+.10   port 22
+.19   port 22
+.30   no port
+
+log into the .19 using Msmith creds
+used nice /bin.sh -p to get root 
+fuck that machine 
+
+
+
+
+moving on the .10
+logged on using Michae creds 
+sudo -l 
+        (ALL) NOPASSWD: /home/Kmichae/exploit_this
++ gdb
+
+
+
+
+
+
+
+
