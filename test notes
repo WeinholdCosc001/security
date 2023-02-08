@@ -117,7 +117,7 @@ Verify key has been uploaded successfully.
  cat /users/home/directory/.ssh/authorized_keys  
     
     
-    
+xfreerdp /v:10.50.24.9 /u:student /p:password /size:1920x1000 +clipboard    
     
     
     
